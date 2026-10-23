@@ -1,0 +1,17 @@
+﻿F11.1  EXCHANGE RATES
+Title,A$1=USD,Trade-weighted Index May 1970 = 100,A$1=CNY,A$1=JPY,A$1=EUR,A$1=KRW,A$1=GBP,A$1=SGD,A$1=INR,A$1=THB,A$1=NZD,A$1=TWD,A$1=MYR,A$1=IDR,A$1=VND,A$1=AED,A$1=PGK,A$1=HKD,A$1=CAD,A$1=ZAR,A$1=CHF,A$1=PHP,A$1=SDR
+Description,AUD/USD Exchange Rate; see notes for further detail.,Australian Dollar Trade-weighted Index,AUD/CNY Exchange Rate,AUD/JPY Exchange Rate,AUD/EUR Exchange Rate,AUD/KRW Exchange Rate,AUD/GBP Exchange Rate,AUD/SGD Exchange Rate,AUD/INR Exchange Rate,AUD/THB Exchange Rate,AUD/NZD Exchange Rate,AUD/TWD Exchange Rate,AUD/MYR Exchange Rate,AUD/IDR Exchange Rate,AUD/VND Exchange Rate,AUD/AED Exchange Rate,AUD/PGK Exchange Rate,AUD/HKD Exchange Rate,AUD/CAD Exchange Rate,AUD/ZAR Exchange Rate,AUD/CHF Exchange Rate,AUD/PHP Exchange Rate,AUD/SDR Exchange Rate
+Frequency,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily,Daily
+Type,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative,Indicative
+Units,USD,Index,CNY,JPY,EUR,KRW,GBP,SGD,INR,THB,NZD,TWD,MYR,IDR,VND,AED,PGK,HKD,CAD,ZAR,CHF,PHP,SDR
+
+
+Source,WM/Reuters,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,RBA,IMF
+Publication date,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,23-Oct-2026,01-Oct-2024,23-Oct-2026,23-Oct-2026,23-Oct-2026,01-Oct-2024,23-Oct-2026,23-Oct-2026,23-Oct-2026
+Series ID,FXRUSD,FXRTWI,FXRCR,FXRJY,FXREUR,FXRSKW,FXRUKPS,FXRSD,FXRIRE,FXRTB,FXRNZD,FXRNTD,FXRMR,FXRIR,FXRVD,FXRUAED,FXRPNGK,FXRHKD,FXRCD,FXRSARD,FXRSF,FXRPHP,FXRSDR
+03-Jan-2023,0.6828,61.40,4.6994,88.48,0.6400,867.16,0.5656,0.9134,56.51,23.47,1.0760,20.97,2.9975,10635,16039,,,5.3316,,,0.6310,38.07,0.5131
+04-Jan-2023,0.6809,61.50,4.6906,89.08,0.6439,866.04,0.5678,0.9138,56.41,23.33,1.0851,20.88,2.9990,10634,16022,,,5.3222,,,0.6351,38.12,0.5120
+23-Oct-2026,0.7006,64.90,4.6752,109.97,0.6250,928.51,0.5233,0.8953,66.47,23.63,1.2313,22.80,2.8618,12662,18101,,3.1347,5.4936,0.9818,,0.5756,44.45,0.5167
+
+
+

@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Airflow and landed data
+logs/
+data/landing/*
+!data/landing/.gitkeep
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store

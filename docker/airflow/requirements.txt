@@ -1,0 +1,3 @@
+# Extra Python packages for the Airflow image.
+# The base image already ships the postgres provider, psycopg2 and requests.
+# Week 4 adds astronomer-cosmos and dbt-postgres here.
