@@ -1,6 +1,6 @@
 create table if not exists audit.load_log (
     load_id bigint generated always as identity primary key,
-    source text not null,
+    source_name text not null,
     target_table text not null,
     source_file text,
     run_id text,

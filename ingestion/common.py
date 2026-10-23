@@ -78,7 +78,7 @@ def load_log(
             cur.execute(
                 """
                 insert into audit.load_log
-                    (source, target_table, source_file, run_id, rows_read,
+                    (source_name, target_table, source_file, run_id, rows_read,
                      rows_inserted, rows_updated, status, error, started_at, finished_at)
                 values (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now())
                 """,
