@@ -46,9 +46,11 @@ def rba_fx_daily():
             conn.close()
 
     @task
-    def extract(ds_nodash: str | None = None) -> str:
-        dest = LANDING / f"f11.1_{ds_nodash}.csv"
-        return str(download(fx.URL, dest))
+    def extract() -> str:
+        # Name by download time: manual runs in Airflow 3 have no logical date,
+        # and the timestamp records exactly which copy of the file was loaded.
+        stamp = pendulum.now("UTC").format("YYYYMMDD[T]HHmmss[Z]")
+        return str(download(fx.URL, LANDING / f"f11.1_{stamp}.csv"))
 
     @task
     def load(path: str, run_id: str | None = None) -> dict:

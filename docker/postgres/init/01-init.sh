@@ -16,6 +16,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname postgres <<-SQL
 	CREATE DATABASE warehouse;
 	REVOKE ALL ON DATABASE warehouse FROM PUBLIC;
 	GRANT CONNECT ON DATABASE warehouse TO loader, transformer, reporter;
+	-- Loads stage through temp tables, and dbt uses them for incremental models.
+	GRANT TEMPORARY ON DATABASE warehouse TO loader, transformer;
 SQL
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname warehouse <<-SQL

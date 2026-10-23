@@ -3,5 +3,5 @@ pre-commit
 pytest
 ruff
 sqlfluff
-psycopg2-binary
+psycopg[binary]
 requests

@@ -11,11 +11,9 @@ from __future__ import annotations
 
 import csv
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import UTC, date, datetime
 from decimal import Decimal
 from pathlib import Path
-
-from psycopg2.extras import execute_values
 
 from ingestion.common import row_hash
 
@@ -90,47 +88,51 @@ def parse_f11(path: Path) -> list[FxRate]:
 def upsert(conn, rates: list[FxRate], source_file: str) -> tuple[int, int]:
     """Insert new rows and update changed ones. Returns (inserted, updated).
 
-    Rows whose hash is unchanged are skipped entirely, so re-running a load
-    is a no-op and _loaded_at keeps the time the value last changed.
+    ``conn`` is a psycopg 3 connection, which is what PostgresHook returns
+    when psycopg 3 is installed. Rows are COPYed into a temp table, then
+    merged with one statement. Rows whose hash is unchanged are skipped, so
+    re-running a load is a no-op and _loaded_at keeps the time the value
+    last changed.
     """
-    sql = f"""
-        insert into {TABLE}
-            (series_id, rate_date, rate_value, units, title, publication_date,
-             _loaded_at, _source_file, _row_hash)
-        values %s
-        on conflict (series_id, rate_date) do update set
-            rate_value = excluded.rate_value,
-            units = excluded.units,
-            title = excluded.title,
-            publication_date = excluded.publication_date,
-            _loaded_at = excluded._loaded_at,
-            _source_file = excluded._source_file,
-            _row_hash = excluded._row_hash
-        where {TABLE}._row_hash is distinct from excluded._row_hash
-        returning (xmax = 0) as inserted
-    """
-    rows = [
-        (
-            r.series_id,
-            r.rate_date,
-            r.value,
-            r.units,
-            r.title,
-            r.publication_date,
-            source_file,
-            r.hash,
-        )
-        for r in rates
-    ]
+    cols = (
+        "series_id, rate_date, rate_value, units, title, publication_date, "
+        "_loaded_at, _source_file, _row_hash"
+    )
+    loaded_at = datetime.now(UTC)
     with conn.cursor() as cur:
-        results = execute_values(
-            cur,
-            sql,
-            rows,
-            template="(%s, %s, %s, %s, %s, %s, now(), %s, %s)",
-            page_size=1000,
-            fetch=True,
+        cur.execute(f"create temp table _stage (like {TABLE}) on commit drop")
+        with cur.copy(f"copy _stage ({cols}) from stdin") as copy:
+            for r in rates:
+                copy.write_row(
+                    (
+                        r.series_id,
+                        r.rate_date,
+                        r.value,
+                        r.units,
+                        r.title,
+                        r.publication_date,
+                        loaded_at,
+                        source_file,
+                        r.hash,
+                    )
+                )
+        cur.execute(
+            f"""
+            insert into {TABLE} ({cols})
+            select {cols} from _stage
+            on conflict (series_id, rate_date) do update set
+                rate_value = excluded.rate_value,
+                units = excluded.units,
+                title = excluded.title,
+                publication_date = excluded.publication_date,
+                _loaded_at = excluded._loaded_at,
+                _source_file = excluded._source_file,
+                _row_hash = excluded._row_hash
+            where {TABLE}._row_hash is distinct from excluded._row_hash
+            returning (xmax = 0) as inserted
+            """
         )
+        results = cur.fetchall()
     conn.commit()
     inserted = sum(1 for (is_insert,) in results if is_insert)
     return inserted, len(results) - inserted

@@ -33,7 +33,7 @@ flowchart LR
 
 | Layer   | Built with                                 | Status   |
 |---------|--------------------------------------------|----------|
-| Ingest  | Airflow 3 (TaskFlow API), Python, psycopg2 | RBA FX done; ABS, EDGAR, ASIC next |
+| Ingest  | Airflow 3 (TaskFlow API), Python, psycopg 3 | RBA FX done; ABS, EDGAR, ASIC next |
 | Store   | Postgres 17, four schemas, three roles     | done     |
 | Model   | dbt, run by Astronomer Cosmos              | week 3–4 |
 | Serve   | Superset                                   | week 4   |
