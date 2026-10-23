@@ -1,0 +1,7 @@
+# Local tooling and CI. The Airflow runtime image has its own requirements in docker/airflow/.
+pre-commit
+pytest
+ruff
+sqlfluff
+psycopg2-binary
+requests
